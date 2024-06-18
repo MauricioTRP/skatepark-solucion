@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSkater, deleteStaker, getSkaters, updateSkater } from "../models/skaters.js";
+import { createSkater, deleteStaker, getSkaters, updateSkater, updateSkaterStatus } from "../models/skaters.js";
 import * as db from "../db/db.js"
 
 const router = Router()
@@ -52,6 +52,22 @@ router.put("/", async (req, res) => {
     res.json({
       message: 'Updated skater',
       skater: result.rows
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Internal Server Error'
+    })
+    console.error(error)
+  }
+})
+
+router.put("/status", async (req, res) => {
+  try {
+    const data = req.body
+    const result = await updateSkaterStatus(data)
+
+    res.json({
+      message: `Updater user status`
     })
   } catch (error) {
     res.status(500).json({

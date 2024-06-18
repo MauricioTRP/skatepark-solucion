@@ -54,3 +54,12 @@ export const deleteStaker = async (data) => {
 
   return result
 }
+
+export const updateSkaterStatus = async (data) => {
+  const { estado, id } = data
+  const text = 'UPDATE skaters SET estado = $1 WHERE id = $2'
+  const values = [estado, id]
+
+  const result = await db.query(text, values)
+  return result
+}
