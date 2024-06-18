@@ -41,7 +41,39 @@
 </div>
 
 <script>
+    console.log("Registro")
     document.getElementById("registro").addEventListener("submit", async (event) => {
+        event.preventDefault()
 
+        const { password, password2 } = event.target
+
+        if(password.value != password2.value|) {
+            alert('Password son distintos')
+            return
+        }
+
+        try {
+            const formData = new FormData(event.target)
+
+            const response = await fetch("/auth/registro", {
+                method: "POST",
+                body: formData
+            })
+
+            const data = await response.json()
+            if (response.status == 500) {
+                throw new Error('Error de servidor')
+            } else if (response.status == 401) {
+                throw new Error('Usuario ya existe')
+            }
+
+            const token = data.token
+            sessionStorage.setItem('token', token)
+
+            window.location = '/datos' + `?token=${sessionStorage.getItem('token')}`
+        } catch (error) {
+            alert("Problemas al crear registro, instentalo de nuevo")
+            console.error(error)
+        }
     })
 </script>

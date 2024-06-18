@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createSkater, getSkaters, updateSkater, deleteStaker, getSkater } from "../models/skaters.js";
 import jwt from 'jsonwebtoken'
 import path from 'node:path'
+import { Authorization } from "../middlewares/Authorization.js";
 
 const router  = Router()
 
@@ -23,7 +24,7 @@ router.get("/registro", async (req, res) => {
 })
 
 // Datos
-router.get("/datos", async (req, res) => {
+router.get("/datos", Authorization, async (req, res) => {
   res.render("datos")
 })
 // Home
