@@ -63,6 +63,9 @@ router.post("/registro", async (req, res) => {
     // Definir ruta para guardar foto y ruta para "consultar desde front"
     const photoURL = path.join(import.meta.dirname, "../static/photos", file.name)
     const dbURL = path.join("photos", file.name) // ruta src
+    
+    file.mv(photoURL) // guarda archivo en carpeta correspondiente
+    
     data.foto = dbURL
 
     const result = await createSkater(data)

@@ -40,11 +40,18 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
+    const data = req.body
+    // Analiza si estado viene vacío y lo define falso
+    if (!data.estado) {
+      data.estado = false
+    }
+
     const result = await updateSkater(data)
 
+    console.log("RESULT", result)
     res.json({
       message: 'Updated skater',
-      skater: result.rows[0]
+      skater: result.rows
     })
   } catch (error) {
     res.status(500).json({
@@ -60,7 +67,7 @@ router.delete("/", async (req, res) => {
     const result = await deleteStaker(data)
 
     res.json({
-      message: `Deleted user with mail ${email}`
+      message: `Deleted user with mail ${data.email}`
     })
   } catch (error) {
     res.status(500).json({
