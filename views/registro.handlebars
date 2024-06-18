@@ -43,11 +43,12 @@
 <script>
     console.log("Registro")
     document.getElementById("registro").addEventListener("submit", async (event) => {
+        console.log("Form Registro")
         event.preventDefault()
 
         const { password, password2 } = event.target
 
-        if(password.value != password2.value|) {
+        if(password.value != password2.value) {
             alert('Password son distintos')
             return
         }
