@@ -25,7 +25,16 @@ router.get("/registro", async (req, res) => {
 
 // Datos
 router.get("/datos", Authorization, async (req, res) => {
-  res.render("datos")
+  const { token } = req.query
+  try {
+    const skater = jwt.verify(token, process.env.JWT_SECRET)
+    res.render("datos", {
+      skater: skater
+    })
+    
+  } catch (error) {
+    res.status(401).render("home")
+  }
 })
 // Home
 router.get("/", async (req, res) => {
