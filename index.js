@@ -29,4 +29,4 @@ app.use("/skaters", skaters)
 app.use("/auth", auth)
 
 
-app.listen(3000, () => {console.log("App escuchando el puerto 3000")})
+app.listen(80, () => {console.log("App escuchando el puerto 3000")})
