@@ -28,5 +28,6 @@ app.use("/", views)
 app.use("/skaters", skaters)
 app.use("/auth", auth)
 
+const port = process.env.SERVER_PORT || 3000
 
-app.listen(80, () => {console.log("App escuchando el puerto 3000")})
+app.listen(port, () => {console.log("App escuchando el puerto", port)})
